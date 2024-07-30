@@ -48,6 +48,11 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.FOUND).body(response);
     }
 
-    
+    @PutMapping
+    public ResponseEntity<SuccessResponse> updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
+        Employee updatedEmployee = employeeService.updateEmployee(id, employee);
+        SuccessResponse response = new SuccessResponse("Employee updated successfully.....", updatedEmployee, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
     
 }
