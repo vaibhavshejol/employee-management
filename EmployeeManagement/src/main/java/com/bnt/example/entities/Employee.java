@@ -1,5 +1,6 @@
 package com.bnt.example.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -15,6 +16,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Data
@@ -33,7 +36,7 @@ public class Employee {
     @Embedded
     Company company;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     Address address;
 
     @ManyToMany
