@@ -1,5 +1,7 @@
 package com.bnt.example.service.serviceimpl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.bnt.example.entities.Employee;
@@ -23,6 +25,31 @@ public class EmployeeServiceImpl implements EmployeeService{
                 throw new UnknownException("Employee object or field cannot be null.");
             }
             return employeeRepository.save(employee);
+        }catch(Exception e){
+            throw new UnknownException(e.getMessage());
+        }
+    }
+
+    @Override
+    public Employee getEmployee(Long id) {
+        try{
+            if (id==null) {
+                throw new UnknownException("Id cannot be null");
+            }
+            return employeeRepository.findById(id).get();
+        }catch(Exception e){
+            throw new UnknownException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Employee> getEmployees() {
+        try{
+            List<Employee> existedEmployees = employeeRepository.findAll();
+            if (existedEmployees==null) {
+                throw new UnknownException("There is no employees present in database.");
+            }
+            return existedEmployees;
         }catch(Exception e){
             throw new UnknownException(e.getMessage());
         }
