@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,11 +49,18 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.FOUND).body(response);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<SuccessResponse> updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
         Employee updatedEmployee = employeeService.updateEmployee(id, employee);
         SuccessResponse response = new SuccessResponse("Employee updated successfully.....", updatedEmployee, HttpStatus.CREATED);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<SuccessResponse> deleteEmployee(@PathVariable Long id){
+        Employee deletedEmployee = employeeService.deleteEmployee(id);
+        SuccessResponse response = new SuccessResponse("Employee with given id "+id+" is deleted.", deletedEmployee, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     
 }
