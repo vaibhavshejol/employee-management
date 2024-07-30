@@ -68,5 +68,19 @@ public class EmployeeServiceImpl implements EmployeeService{
             throw new UnknownException(e.getMessage());
         }
     }
+
+    @Override
+    public Employee deleteEmployee(Long id) {
+        try{
+            Employee existedEmployee = employeeRepository.findById(id).get();
+            if(existedEmployee==null){
+                throw new UnknownException("Employee with given id "+id+" not present.");
+            }
+            employeeRepository.delete(existedEmployee);
+            return existedEmployee;
+        }catch(Exception e){
+            throw new UnknownException(e.getMessage());
+        }
+    }
     
 }
