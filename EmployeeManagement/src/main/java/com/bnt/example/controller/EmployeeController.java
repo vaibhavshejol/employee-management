@@ -7,8 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bnt.example.entities.Employee;
@@ -33,15 +35,19 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SuccessResponse> getEmployee(@PathVariable("id") Long id){
+    public ResponseEntity<SuccessResponse> getEmployee(@PathVariable Long id){
         Employee existedEmployee = employeeService.getEmployee(id);
         SuccessResponse response = new SuccessResponse("Employee with id = "+id, existedEmployee, HttpStatus.OK);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping
-    public ResponseEntity<List<Employee>> getEmployees(){
+    public ResponseEntity<SuccessResponse> getEmployees(){
         List<Employee> existedEmployees = employeeService.getEmployees();
+        SuccessResponse response = new SuccessResponse("Employees list:", existedEmployees, HttpStatus.FOUND);
+        return ResponseEntity.status(HttpStatus.FOUND).body(response);
     }
+
+    
     
 }
