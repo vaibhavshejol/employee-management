@@ -54,5 +54,19 @@ public class EmployeeServiceImpl implements EmployeeService{
             throw new UnknownException(e.getMessage());
         }
     }
+
+    @Override
+    public Employee updateEmployee(Long id, Employee employee) {
+        try{
+            Employee existedEmployee = employeeRepository.findById(id).get();
+            if(existedEmployee==null){
+                throw new UnknownException("Employee with given id = "+id+" not present, please check your giving correct id.");
+            }
+            employee.setId(id);
+            return employeeRepository.save(employee);
+        }catch(Exception e){
+            throw new UnknownException(e.getMessage());
+        }
+    }
     
 }
