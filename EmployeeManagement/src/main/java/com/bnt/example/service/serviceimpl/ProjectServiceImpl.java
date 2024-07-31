@@ -58,4 +58,21 @@ public class ProjectServiceImpl implements ProjectService {
             throw new UnknownException(e.getMessage());
         }
     }
+
+    @Override
+    public Project updatedProject(Long id, Project project) {
+        try{
+            if (id==null || project==null || project.getName()==null || project.getLocation()==null) {
+                throw new UnknownException("Id or project object or field of project cannot be null");
+            }
+            Project existedProject = projectRepository.findById(id).get();
+            if(existedProject==null){
+                throw new UnknownException("Project with given id = "+id+" not present, please check you are giving correct id.");
+            }
+            project.setId(id);
+            return projectRepository.save(project);
+        }catch(Exception e){
+            throw new UnknownException(e.getMessage());
+        }
+    }
 }

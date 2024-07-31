@@ -11,5 +11,7 @@ public interface ProjectService {
     List<Project> getProjects();
 
     Project getProject(Long id);
+
+    Project updatedProject(Long id, Project project);
     
 }
