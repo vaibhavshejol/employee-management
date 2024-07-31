@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +46,13 @@ public class ProjectController {
         Project existedProject = projectService.getProject(id);
         SuccessResponse response = new SuccessResponse("Project with given id "+id, existedProject, HttpStatus.FOUND);
         return ResponseEntity.status(HttpStatus.FOUND).body(response);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<SuccessResponse> updateProject(@PathVariable Long id, @RequestBody Project project){
+        Project updatedProject = projectService.updatedProject(id, project);
+        SuccessResponse response = new SuccessResponse("Project updated.", updatedProject, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 }
