@@ -24,5 +24,6 @@ public class Address {
     String location;
 
     @OneToOne
+    @Column(name = "employee_id")
     Employee employee;
 }
