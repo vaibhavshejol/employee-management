@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,13 @@ public class ProjectController {
     public ResponseEntity<SuccessResponse> getProjects(){
         List<Project> existedProjects = projectService.getProjects();
         SuccessResponse response = new SuccessResponse("Project list:", existedProjects, HttpStatus.FOUND);
+        return ResponseEntity.status(HttpStatus.FOUND).body(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<SuccessResponse> getProject(@PathVariable Long id){
+        Project existedProject = projectService.getProject(id);
+        SuccessResponse response = new SuccessResponse("Project with given id "+id, existedProject, HttpStatus.FOUND);
         return ResponseEntity.status(HttpStatus.FOUND).body(response);
     }
 
