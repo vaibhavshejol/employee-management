@@ -2,6 +2,7 @@ package com.bnt.example.entities;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +26,6 @@ public class Project {
     String name;
     @Column(name = "project_location")
     String location;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     List<Employee> employees;
 }
