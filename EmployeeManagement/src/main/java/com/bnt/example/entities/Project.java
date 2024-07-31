@@ -26,6 +26,6 @@ public class Project {
     String name;
     @Column(name = "project_location")
     String location;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "projects", cascade = CascadeType.ALL)
     List<Employee> employees;
 }
