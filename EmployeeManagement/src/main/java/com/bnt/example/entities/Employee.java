@@ -17,8 +17,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-import org.hibernate.annotations.Cascade;
-
 @Entity
 @Data
 @AllArgsConstructor
