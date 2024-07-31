@@ -1,5 +1,7 @@
 package com.bnt.example.service.serviceimpl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.bnt.example.entities.Project;
@@ -23,6 +25,19 @@ public class ProjectServiceImpl implements ProjectService {
                 throw new UnknownException("Project object or field cannot be null.");
             }
             return projectRepository.save(project);
+        }catch(Exception e){
+            throw new UnknownException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Project> getProjects() {
+        try{
+            List<Project> existedProjects = projectRepository.findAll();
+            if (existedProjects==null || existedProjects.size()<1) {
+                throw new UnknownException("There is no projects present in database.");
+            }
+            return existedProjects;
         }catch(Exception e){
             throw new UnknownException(e.getMessage());
         }
