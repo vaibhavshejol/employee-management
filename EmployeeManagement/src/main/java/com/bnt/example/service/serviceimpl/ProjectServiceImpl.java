@@ -75,4 +75,21 @@ public class ProjectServiceImpl implements ProjectService {
             throw new UnknownException(e.getMessage());
         }
     }
+
+    @Override
+    public Project deleteProject(Long id) {
+        try{
+            if (id==null) {
+                throw new UnknownException("Id must be required.");
+            }
+            Project existedProject = projectRepository.findById(id).get();
+            if(existedProject==null){
+                throw new UnknownException("Project with given id = "+id+" not present, please check you are giving correct id.");
+            }
+            projectRepository.delete(existedProject);
+            return existedProject;
+        }catch(Exception e){
+            throw new UnknownException(e.getMessage());
+        }
+    }
 }
