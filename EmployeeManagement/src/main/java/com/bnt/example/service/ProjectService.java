@@ -9,5 +9,7 @@ public interface ProjectService {
     Project addProject(Project project);
 
     List<Project> getProjects();
+
+    Project getProject(Long id);
     
 }
