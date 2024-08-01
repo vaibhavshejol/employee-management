@@ -7,8 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
@@ -16,6 +14,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Data
@@ -35,11 +37,17 @@ public class Employee {
     Company company;
 
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     Address address;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "employee_project",
-                joinColumns = @JoinColumn(name = "employee_id"),
-                inverseJoinColumns= @JoinColumn(name = "project_id"))
+    public void setAddress(Address address) {
+        if (address != null) {
+            address.setEmployee(this);
+        }
+        this.address = address;
+    }
+
+    @ManyToMany(mappedBy = "employees")
+    @JsonIgnore
     List<Project> projects;
 }

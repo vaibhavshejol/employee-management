@@ -34,7 +34,7 @@ public class ProjectServiceImpl implements ProjectService {
     public List<Project> getProjects() {
         try{
             List<Project> existedProjects = projectRepository.findAll();
-            if (existedProjects==null || existedProjects.size()<1) {
+            if (existedProjects==null || existedProjects.isEmpty()) {
                 throw new UnknownException("There is no projects present in database.");
             }
             return existedProjects;

@@ -1,10 +1,13 @@
 package com.bnt.example.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +27,7 @@ public class Address {
     String location;
 
     @OneToOne
-    @Column(name = "employee_id")
+    @JoinColumn(name = "employee_id")
+    @JsonBackReference
     Employee employee;
 }

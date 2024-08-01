@@ -46,7 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     public List<Employee> getEmployees() {
         try{
             List<Employee> existedEmployees = employeeRepository.findAll();
-            if (existedEmployees==null) {
+            if (existedEmployees.isEmpty()) {
                 throw new UnknownException("There is no employees present in database.");
             }
             return existedEmployees;
